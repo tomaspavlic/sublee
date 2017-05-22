@@ -1,4 +1,6 @@
 # sublee
+Console application for downloading and searching subtitles from OpenSubtitles.org
+
 
 ### usage:
 `dotnet.exe sublee.dll download "PathToFile" -v`
