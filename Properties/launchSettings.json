@@ -1,8 +1,0 @@
-{
-  "profiles": {
-    "test": {
-      "commandName": "Project",
-      "commandLineArgs": "download \"C:\\Users\\tomas.pavlic\\Desktop\\fo\\New.Girl.S04E04.HDTV.x264-KILLERS.mp4\" --verbose"
-    }
-  }
-}
