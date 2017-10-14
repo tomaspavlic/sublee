@@ -2,6 +2,7 @@
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
+    <AssemblyName>sublee</AssemblyName>
     <TargetFramework>netcoreapp2.0</TargetFramework>
   </PropertyGroup>
 
