@@ -3,39 +3,28 @@ Console application for downloading and searching subtitles from OpenSubtitles.o
 
 
 ### usage:
-`dotnet.exe sublee.dll download "PathToFile" -v`
 
-### example:
-`dotnet.exe sublee.dll download "C:\Users\tomas.pavlic\Desktop\Silicon.Valley.S04E05.720p.HDTV.x265.ShAaNiG.mkv" -v`
+#### search subtitles using moviehash method
+`sublee /path/to/some/movie --method moviehash --language eng`
 
-### output (with argument -v | --verbose):
-```
-C:\Users\tomas.pavlic\Desktop\sublee\bin\Release\PublishOutput>dotnet.exe sublee.dll download "C:\Users\tomas.pavlic\Desktop\Silicon.Valley.S04E05.720p.HDTV.x265.ShAaNiG.mkv" -v
-[2017-05-22 02:35:32][INFO] Logging into OpenSubtitles api.
-[2017-05-22 02:35:32][INFO] Searching subtitles for 'C:\Users\tomas.pavlic\Desktop\Silicon.Valley.S04E05.720p.HDTV.x265.ShAaNiG.mkv' using method moviehash.
-[2017-05-22 02:35:32][INFO] Subtitles found 'Silicon.Valley.S04E05.720p.HDTV.x265.ShAaNiG.srt'.
-[2017-05-22 02:35:32][INFO] Downloading subtitle for 'C:\Users\tomas.pavlic\Desktop\Silicon.Valley.S04E05.720p.HDTV.x265.ShAaNiG.mkv'.
-[2017-05-22 02:35:32][INFO] Subtitles successfully downloaded.
-```
-
-#### help
-use -h argument for more information.
+#### search subtitles using query method
+`sublee "Game Of Thrones s01e01" --method query --language eng`
 
 ##### example:
-dotnet.exe sublee.dll -h
+sublee --help
 
 ##### output:
 ```
-C:\Users\tomas.pavlic\Desktop\sublee\bin\Release\PublishOutput>dotnet.exe sublee.dll -h
+Usage: sublee [arguments] [options]
 
-Usage:  [options] [command]
+Arguments:
+  search  Search value depends on search method. moviehash <path>, query <text>, imdb <id>, tag <text>
 
 Options:
-  -? | -h | --help  Show help information
-
-Commands:
-  download
-  search
-
-Use " [command] --help" for more information about a command.
+  -m|--method <method>  Search method moviehash, query, tag or imdb.
+  -o|--output <path>    Path for output subtitles filename default is original substitles name.
+  -l|--language <lang>  Language of subtitles default is english (eng). ISO 639-2/B
+  -1|--first            Download first subtitles without user input.
+  -v|--verbose          Be verbose.
+  -?|-h|--help          Show help information
 ```
