@@ -1,0 +1,3 @@
+[submodule "Topdev.OpenSubtitles"]
+	path = Topdev.OpenSubtitles
+	url = https://github.com/tomaspavlic/opensubtitles-api.git
