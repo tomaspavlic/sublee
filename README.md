@@ -1,8 +1,16 @@
 # sublee
 Console application for downloading and searching subtitles from OpenSubtitles.org
 
+## Install
 
-### usage:
+[![Releases](https://img.shields.io/github/downloads/tomaspavlic/sublee/total.svg)][Releases]
+
+Standalone **executables** for _Linux_, _macOS_ and _Windows_ are provided in
+the [Releases] section.
+Download an archive for your operating system and unpack the content to a place
+accessible from command line. The sublee is ready to go.
+
+## usage:
 
 #### search subtitles using moviehash method
 `sublee /path/to/some/movie --method moviehash --language eng`
