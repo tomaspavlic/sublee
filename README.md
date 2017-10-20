@@ -2,7 +2,8 @@
 Console application for downloading and searching subtitles from OpenSubtitles.org
 
 ## Install
-[![Releases](https://img.shields.io/github/downloads/tomaspavlic/sublee/total.svg)](releases)
+
+[![Releases](https://img.shields.io/github/downloads/tomaspavlic/sublee/total.svg)][Releases]
 
 Standalone **executables** for _Linux_, _macOS_ and _Windows_ are provided in
 the [Releases] section.
@@ -35,3 +36,6 @@ Options:
   -v|--verbose          Be verbose.
   -?|-h|--help          Show help information
 ```
+
+
+[Releases]: https://github.com/tomaspavlic/sublee/releases
