@@ -20,6 +20,7 @@ namespace Topdev.Sublee.Cli
             CommandOption verbose = app.Option("-v|--verbose", "Be verbose.", CommandOptionType.NoValue);
 
             app.Name = "sublee";
+            app.FullName = "Command line application for downloading and searching subtitles from OpenSubtitles.org";
             app.Syntax = "Sublee OpenSubtitles Command Line Interface (1.0.0)";
             app.HelpOption("-?|-h|--help");
 
