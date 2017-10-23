@@ -1,4 +1,6 @@
 # sublee
+[![Build status](https://img.shields.io/travis/tomaspavlic/sublee.svg)](https://github.com/tomaspavlic/sublee)
+
 Console application for downloading and searching subtitles from OpenSubtitles.org
 
 ## Install
