@@ -43,8 +43,11 @@ namespace Topdev.Sublee.Cli
 
                 if (!first.HasValue())
                 {
-                    PrintSubtitles(subtitles);
-                    selectedSubtitles = GetUserSelection(subtitles.Length) - 1;
+                    var consoleList = new ConsoleList(
+                        "What subtitles do you want to download", 
+                        subtitles.Select(x => x.SubFileName).ToArray());
+
+                    selectedSubtitles = consoleList.ReadResult();
                 }
 
                 openSubtitlesApi.DownloadSubtitle(
@@ -55,18 +58,6 @@ namespace Topdev.Sublee.Cli
             });
 
             app.Execute(args);
-        }
-
-        /// <summary>
-        /// Write to console all subtitles with coresponding indexes.
-        /// </summary>
-        /// <param name="subtitles">Subtitles to be printer.</param>
-        public static void PrintSubtitles(Subtitles[] subtitles)
-        {
-            for (int i = 0; i < subtitles.Length; i++)
-            {
-                Console.WriteLine($"[{i + 1}] {subtitles[i].SubFileName}");
-            }
         }
 
         /// <summary>
@@ -86,36 +77,6 @@ namespace Topdev.Sublee.Cli
             }
 
             throw new Exception("Search method does not exists.");
-        }
-
-
-        /// <summary>
-        /// Asks user to type in integer in range 1 - (max).
-        /// </summary>
-        /// <param name="max">Maximum value for input range.</param>
-        /// <returns>Validated user's input.</returns>
-        private static int GetUserSelection(int max)
-        {
-            int index;
-
-            while (true)
-            {
-                Console.Write("Select: ");
-                string userInput = Console.ReadLine();
-
-                if (int.TryParse(userInput, out index))
-                {
-                    if (index <= 0)
-                        continue;
-
-                    if (index > max)
-                        continue;
-
-                    return index;
-                }
-
-                Console.Write(Environment.NewLine);
-            }
         }
     }
 }
