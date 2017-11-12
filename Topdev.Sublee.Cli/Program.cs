@@ -10,18 +10,18 @@ namespace Topdev.Sublee.Cli
     {
         static void Main(string[] args)
         {
-            CommandLineApplication app = new CommandLineApplication();
-            CommandArgument search = app.Argument("search", "Search value depends on search method. moviehash <path>, query <text>, imdb <id>, tag <text>", false);
+            var app = new CommandLineApplication();
+            var search = app.Argument("search", "Search value depends on search method. moviehash <path>, query <text>, imdb <id>, tag <text>", false);
 
-            CommandOption method = app.Option("-m|--method <method>", "Search method moviehash, query, tag or imdb.", CommandOptionType.SingleValue);
-            CommandOption output = app.Option("-o|--output <path>", "Path for output subtitles filename default is original substitles name.", CommandOptionType.SingleValue);
-            CommandOption language = app.Option("-l|--language <lang>", "Language of subtitles default is english (eng). ISO 639-2/B", CommandOptionType.SingleValue);
-            CommandOption first = app.Option("-1|--first", "Download first subtitles without user input.", CommandOptionType.NoValue);
-            CommandOption verbose = app.Option("-v|--verbose", "Be verbose.", CommandOptionType.NoValue);
+            var method = app.Option("-m|--method <method>", "Search method moviehash, query, tag or imdb.", CommandOptionType.SingleValue);
+            var output = app.Option("-o|--output <path>", "Path for output subtitles filename default is original substitles name.", CommandOptionType.SingleValue);
+            var language = app.Option("-l|--language <lang>", "Language of subtitles default is english (eng). ISO 639-2/B", CommandOptionType.SingleValue);
+            var first = app.Option("-1|--first", "Download first subtitles without user input.", CommandOptionType.NoValue);
+            var verbose = app.Option("-v|--verbose", "Be verbose.", CommandOptionType.NoValue);
 
             app.Name = "sublee";
             app.FullName = "Command line application for downloading and searching subtitles from OpenSubtitles.org";
-            app.Syntax = "Sublee OpenSubtitles Command Line Interface (1.0.0)";
+            app.Syntax = "Sublee OpenSubtitles Command Line Interface (1.1.0)";
             app.HelpOption("-?|-h|--help");
 
             app.OnExecute(() =>
@@ -30,13 +30,11 @@ namespace Topdev.Sublee.Cli
                 var searchMethod = ParseSearchMethod(method.Value());
                 int selectedSubtitles = 0;
                 string searchValue = search.Value;
+                string lang = (language.HasValue() ? language.Value() : "eng");
 
-                openSubtitlesApi.LogIn("cz", "OSTestUserAgentTemp");
+                openSubtitlesApi.LogIn(lang, "sublee");
 
-                Subtitles[] subtitles = openSubtitlesApi.FindSubtitles(
-                    searchMethod,
-                    searchValue,
-                    (language.HasValue() ? language.Value() : "eng"));
+                var subtitles = openSubtitlesApi.FindSubtitles(searchMethod, searchValue, lang);
 
                 if (subtitles.Length == 0)
                     return 0;
