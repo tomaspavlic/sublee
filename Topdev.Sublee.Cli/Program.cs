@@ -27,7 +27,7 @@ namespace Topdev.Sublee.Cli
             app.OnExecute(() =>
             {
                 var openSubtitlesApi = new OpenSubtitlesApi();
-                var searchMethod = ParseSearchMethod(method.Value());
+                var searchMethod = GetSearchMethod(method.Value(), search.Value);
                 int selectedSubtitles = 0;
                 string searchValue = search.Value;
                 string lang = (language.HasValue() ? language.Value() : "eng");
@@ -42,7 +42,7 @@ namespace Topdev.Sublee.Cli
                 if (!first.HasValue())
                 {
                     var consoleList = new ConsoleList(
-                        "What subtitles do you want to download", 
+                        "What subtitles do you want to download",
                         subtitles.Select(x => x.SubFileName).ToArray());
 
                     selectedSubtitles = consoleList.ReadResult();
@@ -56,6 +56,31 @@ namespace Topdev.Sublee.Cli
             });
 
             app.Execute(args);
+        }
+
+        /// <summary>
+        /// Get search method from input arguments and options.
+        /// </summary>
+        /// <param name="method">Search method in string.</param>
+        /// <param name="searchValue">Searched value.</param>
+        /// <returns>Search method for OpenSubtitle api.</returns>
+        public static SearchMethod GetSearchMethod(string method, string searchValue)
+        {
+            if (method != null)
+            {
+                return ParseSearchMethod(method);
+            }
+            else
+            {
+                if (File.Exists(searchValue))
+                {
+                    return SearchMethod.MovieHash;
+                }
+                else
+                {
+                    return SearchMethod.Query;
+                }
+            }
         }
 
         /// <summary>
