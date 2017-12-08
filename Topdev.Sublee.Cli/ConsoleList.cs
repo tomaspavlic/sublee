@@ -140,6 +140,8 @@ namespace Topdev.Sublee.Cli
 
         private void WriteRow(string value, bool isSelected)
         {
+            value = value.Ellipsis(Console.WindowWidth - 3);
+
             if (isSelected)
             {
                 Console.ForegroundColor = _selectionColor;
@@ -154,7 +156,11 @@ namespace Topdev.Sublee.Cli
                 Console.Write(value);
             }
 
-            Console.Write(new string(' ', Console.WindowWidth - value.Length - 2));
+            int spaces = Console.WindowWidth - value.Length - 3;
+
+            if (spaces > 0)
+                Console.Write(new string(' ', spaces));
+            
             Console.Write(Environment.NewLine);
         }
 
