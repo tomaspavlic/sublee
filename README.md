@@ -40,7 +40,7 @@ Options:
 ```
 
 ##### Prompt
-If you are not using option -1|--first you will be prompted for subtitles selection
+If you are not using option `-1|--first` you will be prompted for subtitles selection
 
 ![Prompt](../master/prompt.gif)
 
