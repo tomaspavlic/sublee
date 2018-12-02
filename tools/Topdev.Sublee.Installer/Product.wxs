@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+  
+  <?define UpgradeCode = "{32A554E5-A22E-4A7F-908E-984915EA83EF}" ?>
+  <?define BuildVersion = 1.1.0 ?>
+  
+	<Product Id="*" Name="Sublee" Language="!(loc.Language)" Version="$(var.BuildVersion)" Manufacturer="Topdev" UpgradeCode="878969a0-7ce3-4810-9a75-90784d106a58">
+		<Package 
+      InstallerVersion="200" 
+      Compressed="yes" 
+      InstallScope="perMachine" 
+      Manufacturer="!(loc.Company)"
+      Description="!(loc.Description)"
+      Keywords="!(loc.Keywords)"
+      Comments="!(loc.Comments)"
+      Languages="!(loc.Language)"
+      />
+
+		<MajorUpgrade DowngradeErrorMessage="!(loc.DowngradeErrorMessage)" />
+    <MediaTemplate EmbedCab="yes" />
+
+    <UIRef Id="WixUI_Minimal" />
+
+    <Property Id="ARPURLINFOABOUT">https://github.com/tomaspavlic/sublee</Property>
+
+    <WixVariable Id="WixUILicenseRtf" Value="$(var.ProjectDir)\Assets\License.rtf" />
+
+		<Feature Id="ProductFeature" Title="Topdev.Sublee.Installer" Level="1">
+      <ComponentGroupRef Id="ProductComponents" />
+      <ComponentGroupRef Id="PublishedComponents" />
+		</Feature>
+	</Product>
+
+  <Fragment>
+    <Directory Id="TARGETDIR" Name="SourceDir">
+      <?if $(var.Platform)=x64 ?>
+      <Directory Id="ProgramFiles64Folder">
+        <Directory Id="INSTALLFOLDER" Name="!(loc.ProductNameFolder)" />
+      </Directory>
+      <?else?>
+      <Directory Id="ProgramFilesFolder">
+        <Directory Id="INSTALLFOLDER" Name="!(loc.ProductNameFolder)" />
+      </Directory>
+      <?endif?>
+    </Directory>
+  </Fragment>
+
+  <Fragment>
+    <ComponentGroup Id="ProductComponents" Directory="INSTALLFOLDER">
+      <ComponentRef Id="ContextMenu" />
+      <ComponentRef Id="BatchFile" />
+    </ComponentGroup>
+
+    <DirectoryRef Id="INSTALLFOLDER" FileSource="..\..\src\Topdev.Sublee.Cli\bin\Debug\net461\win-$(var.Platform)\publish\">
+      <Component Id="ContextMenu" Guid="{5E96F813-3ECA-450B-ABA9-A25EFE6E3D70}">
+        <RegistryValue Id="RegContextMenu" 
+                       Root="HKCR" 
+                       Key="*\shell\Download Subtitles\command" 
+                       Type="string" 
+                       Action="write" 
+                       Value="&quot;[INSTALLFOLDER]run.bat&quot; &quot;%1&quot;" />
+      </Component>
+    </DirectoryRef>
+  
+    <DirectoryRef Id="INSTALLFOLDER" FileSource="$(var.ProjectDir)\Assets">
+      <Component Id="BatchFile" Guid="{263640EF-5AAE-4522-B99D-730581D475AE}">
+        <File Id="BatchFileFile" Name="run.bat" />
+        <Environment Id="PATH" Name="PATH" Value="[INSTALLFOLDER]" Permanent="no" Part="last" Action="set" System="yes" />
+      </Component>
+    </DirectoryRef>
+  </Fragment>
+</Wix>

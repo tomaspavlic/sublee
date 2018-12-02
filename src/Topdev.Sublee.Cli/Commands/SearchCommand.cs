@@ -33,12 +33,12 @@ namespace Topdev.Sublee.Cli
             var openSubtitlesApi = new OpenSubtitlesApi();
             int selectedIndex = 0;
 
-            Console.WriteLine("[INFO] Logging into OpenSubtitles.org.");
+            if (Verbose) Console.WriteLine("[INFO] Logging into OpenSubtitles.org.");
             openSubtitlesApi.LogIn(Language, "sublee");
 
             try
             {
-                Console.WriteLine($"[INFO] Searching for subtitles using method '{Method}' with argument '{Search}' for language '{Language}'.");
+                if (Verbose) Console.WriteLine($"[INFO] Searching for subtitles using method '{Method}' with argument '{Search}' for language '{Language}'.");
                 var subtitles = openSubtitlesApi.FindSubtitles(Method, Search, Language);
 
                 if (subtitles.Length == 0)
@@ -55,7 +55,7 @@ namespace Topdev.Sublee.Cli
                 var selectedSubtitles = subtitles[selectedIndex];
                 var outputFilePath = BuildOutputFilePath(Output, selectedSubtitles.SubFileName);
 
-                Console.WriteLine($"[INFO] Downloading: '{selectedSubtitles.MovieName} ({selectedSubtitles.MovieYear})' to '{outputFilePath}'.");
+                if (Verbose) Console.WriteLine($"[INFO] Downloading: '{selectedSubtitles.MovieName} ({selectedSubtitles.MovieYear})' to '{outputFilePath}'.");
                 openSubtitlesApi.DownloadSubtitle(selectedSubtitles, outputFilePath);
             }
             catch (Exception exception)

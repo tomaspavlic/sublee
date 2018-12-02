@@ -16,4 +16,10 @@
     <ProjectReference Include="..\Topdev.OpenSubtitles\Topdev.OpenSubtitles.csproj" />
   </ItemGroup>
 
+  <Target Name="GetTargetPath" Returns="@(_FakeOutputPath)">
+    <ItemGroup>
+      <_FakeOutputPath Include="$(MSBuildProjectDirectory)\$(PackageOutputPath)\$(AssemblyName).UNK" />
+    </ItemGroup>
+  </Target>
+
 </Project>
