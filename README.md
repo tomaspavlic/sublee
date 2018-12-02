@@ -45,3 +45,9 @@ If you are not using option `-1|--first` you will be prompted for subtitles sele
 ![Prompt](../master/prompt.gif)
 
 [Releases]: https://github.com/tomaspavlic/sublee/releases
+
+
+##### Windows Installer
+You can find in [Releases] section also windows installer (msi). It installs application into program files and add this into your path environment. You can start using sublee in commnad line immediatelly. It adds an entry in the Windows Explorer context menu 'Download Subtitles'.
+
+![ContextMenu](../master/context_menu.jpg)
