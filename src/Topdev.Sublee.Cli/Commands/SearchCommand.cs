@@ -17,7 +17,7 @@ namespace Topdev.Sublee.Cli
         public SearchMethod Method { get; } = SearchMethod.MovieHash;
 
         [Option("-o|--output <path>", Description = "Path for output subtitles filename default is original substitles name")]
-        public string Output { get; } = null;
+        public string Output { get; }
 
         [Option("-l|--language <lang>", Description = "Language of subtitles default is english (eng). ISO 639-2/B")]
         public string Language { get; } = "eng";
@@ -28,8 +28,13 @@ namespace Topdev.Sublee.Cli
         [Option("-v|--verbose", Description = "Be verbose")]
         public bool Verbose { get; } = false;
 
-        private void OnExecute()
+        private void OnExecute(CommandLineApplication app)
         {
+            if (string.IsNullOrEmpty(Search)){
+                app.ShowHelp();
+                return;
+            }
+
             var openSubtitlesApi = new OpenSubtitlesApi();
             int selectedIndex = 0;
 
