@@ -4,11 +4,12 @@ using System.Linq;
 using Topdev.OpenSubtitles;
 using System.Net.Http;
 using McMaster.Extensions.CommandLineUtils;
+using Topdev.Sublee.Cli.Commands;
 
 namespace Topdev.Sublee.Cli
 {
     [Command]
-    [Subcommand("search", typeof(SearchCommand))]
+    [Subcommand(typeof(SearchCommand), typeof(RenameCommand))]
     class Program
     {
         public static int Main(string[] args)

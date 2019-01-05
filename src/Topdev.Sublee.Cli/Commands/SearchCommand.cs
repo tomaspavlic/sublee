@@ -4,7 +4,7 @@ using System.Linq;
 using McMaster.Extensions.CommandLineUtils;
 using Topdev.OpenSubtitles;
 
-namespace Topdev.Sublee.Cli
+namespace Topdev.Sublee.Cli.Commands
 {
     [Command("search")]
     public class SearchCommand
