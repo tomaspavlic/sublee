@@ -12,6 +12,10 @@ namespace Topdev.Sublee.Cli
             openSubtitlesApi.LogIn("eng", "sublee");
 
             var subtitles = openSubtitlesApi.FindSubtitles(SearchMethod.MovieHash, filepath, "eng")
+                .GroupBy(s => s.MovieName)
+                .Select(g => new { Subtitles = g.First(), Count = g.Count() })
+                .OrderByDescending(s => s.Count)
+                .Select(s => s.Subtitles)
                 .FirstOrDefault();
 
             if (subtitles != null)

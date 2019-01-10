@@ -33,6 +33,7 @@ namespace Topdev.Sublee.Cli.Commands
 
                 foreach (var file in files)
                 {
+                    Console.WriteLine($"[VERBOSE] File found {file}. Renaming ...");
                     _renamer.Rename(file, Output, Path.GetExtension(file));
                 }
             }
@@ -43,7 +44,7 @@ namespace Topdev.Sublee.Cli.Commands
             }
             else
             {
-                System.Console.WriteLine("[ERROR] Path of input value does not exists.");
+                Console.WriteLine("[ERROR] Path of input value does not exists.");
             }
         }
 
