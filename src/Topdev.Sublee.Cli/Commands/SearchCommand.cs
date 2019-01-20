@@ -2,13 +2,15 @@ using System;
 using System.IO;
 using System.Linq;
 using McMaster.Extensions.CommandLineUtils;
+using Microsoft.Extensions.Logging;
 using Topdev.OpenSubtitles;
 
 namespace Topdev.Sublee.Cli.Commands
 {
-    [Command("search")]
-    public class SearchCommand
+    public class SearchCommand : BaseCommand
     {
+        private readonly OpenSubtitlesApi _api;
+
         [Argument(0, "search", "Search value depends on search method. moviehash <path>, query <text>, imdb <id>, tag <text>")]
         public string Search { get; }
 
@@ -25,48 +27,35 @@ namespace Topdev.Sublee.Cli.Commands
         [Option("-1|--first", Description = "Download first subtitles without user input")]
         public bool First { get; }
 
-        [Option("-v|--verbose", Description = "Be verbose")]
-        public bool Verbose { get; } = false;
-
-        private void OnExecute(CommandLineApplication app)
+        public SearchCommand(ILogger<SearchCommand> logger, OpenSubtitlesApi api)
+            : base(logger)
         {
-            if (string.IsNullOrEmpty(Search)){
-                app.ShowHelp();
-                return;
-            }
+            _api = api;
+        }
 
-            var openSubtitlesApi = new OpenSubtitlesApi();
+        protected override void Execute(CommandLineApplication app)
+        {
             int selectedIndex = 0;
+            if (Verbose) _logger.LogInformation($"Searching for subtitles using method '{Method}' with argument '{Search}' for language '{Language}'.");
+            var subtitles = _api.FindSubtitles(Method, Search, Language);
 
-            if (Verbose) Console.WriteLine("[INFO] Logging into OpenSubtitles.org.");
-            openSubtitlesApi.LogIn(Language, "sublee");
+            if (subtitles.Length == 0)
+                _logger.LogWarning($"No subtitles found.");
 
-            try
+            if (!First)
             {
-                if (Verbose) Console.WriteLine($"[INFO] Searching for subtitles using method '{Method}' with argument '{Search}' for language '{Language}'.");
-                var subtitles = openSubtitlesApi.FindSubtitles(Method, Search, Language);
+                var consoleList = new ConsoleList("What subtitles do you want to download",
+                    subtitles.Select(x => x.SubFileName).ToArray());
 
-                if (subtitles.Length == 0)
-                    Console.WriteLine($"[WARN] No subtitles found.");
-
-                if (!First)
-                {
-                    var consoleList = new ConsoleList("What subtitles do you want to download",
-                        subtitles.Select(x => x.SubFileName).ToArray());
-
-                    selectedIndex = consoleList.ReadResult();
-                }
-
-                var selectedSubtitles = subtitles[selectedIndex];
-                var outputFilePath = BuildOutputFilePath(Output, selectedSubtitles.SubFileName);
-
-                if (Verbose) Console.WriteLine($"[INFO] Downloading: '{selectedSubtitles.MovieName} ({selectedSubtitles.MovieYear})' to '{outputFilePath}'.");
-                openSubtitlesApi.DownloadSubtitle(selectedSubtitles, outputFilePath);
+                selectedIndex = consoleList.ReadResult();
             }
-            catch (Exception exception)
-            {
-                Console.WriteLine($"[ERROR] {exception.Message}");
-            }
+
+            var selectedSubtitles = subtitles[selectedIndex];
+            var outputFilePath = BuildOutputFilePath(Output, selectedSubtitles.SubFileName);
+
+            if (Verbose) _logger.LogInformation($"Downloading: '{selectedSubtitles.MovieName} ({selectedSubtitles.MovieYear})' to '{outputFilePath}'.");
+            _api.DownloadSubtitle(selectedSubtitles, outputFilePath);
+
         }
 
         /// <summary>
