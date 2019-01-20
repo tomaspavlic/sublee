@@ -1,3 +1,4 @@
+using System;
 using System.Linq;
 using Microsoft.Extensions.Logging;
 using Topdev.OpenSubtitles;
@@ -22,6 +23,9 @@ namespace Topdev.Sublee.Cli.Models
                 .OrderByDescending(s => s.Count)
                 .Select(s => s.Subtitles)
                 .FirstOrDefault();
+
+            if (subtitles == null)
+                throw new Exception("No information could be found.");
                 
             if (subtitles.MovieKind == "episode")
             {
