@@ -23,6 +23,9 @@ namespace Topdev.Sublee.Cli.Commands
         [Option("-o|--output <path>", Description = "Path for output directory")]
         public string Output { get; }
 
+        [Option("-r|--replace", Description = "Be verbose")]
+        public bool Replace { get; } = false;
+
         public RenameCommand(ILogger<RenameCommand> logger, OpenSubtitlesApi api)
             : base(logger)
         {
@@ -32,7 +35,7 @@ namespace Topdev.Sublee.Cli.Commands
         protected override void Execute(CommandLineApplication app)
         {
             _allowedExtensions = Extensions.Split('|').Select(e => $".{e}").ToArray();
-            
+
             // if input is directory path
             if (Directory.Exists(Input))
             {
@@ -69,6 +72,19 @@ namespace Topdev.Sublee.Cli.Commands
             if (Verbose) _logger.LogInformation($"New path for file generated '{outputFilePath}'.");
             // Check if direcotry exists if not create
             new FileInfo(outputFilePath).Directory.Create();
+
+            if (File.Exists(outputFilePath))
+            {
+                if (Replace)
+                {
+                    File.Delete(outputFilePath);
+                }
+                else
+                {
+                    _logger.LogWarning("File already exists. Skipping.");
+                    return;
+                }
+            }
 
             if (Verbose) _logger.LogInformation($"Moving file to new location.");
             // Move file to newly generated path
