@@ -31,7 +31,7 @@ namespace Topdev.Sublee.Cli.Commands
 
         protected override void Execute(CommandLineApplication app)
         {
-            _allowedExtensions = Extensions.Split("|").Select(e => $".{e}").ToArray();
+            _allowedExtensions = Extensions.Split('|').Select(e => $".{e}").ToArray();
             
             // if input is directory path
             if (Directory.Exists(Input))

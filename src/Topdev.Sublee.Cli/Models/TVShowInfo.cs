@@ -15,7 +15,7 @@ namespace Topdev.Sublee.Cli.Models
         public TVShowInfo(Subtitles sub, string filePath) 
             : base(sub, filePath)
         {
-            _nameComponents = sub.MovieName.Split("\"");
+            _nameComponents = sub.MovieName.Split('\\');
         }
 
         public override string ToString() =>
