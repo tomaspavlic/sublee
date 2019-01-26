@@ -8,6 +8,8 @@ using Topdev.Sublee.Cli.Models;
 
 namespace Topdev.Sublee.Cli.Commands
 {
+    [Command(
+        Description = "Recognize a media file and move it to new location")]
     public class RenameCommand : BaseCommand
     {
         private string[] _allowedExtensions;

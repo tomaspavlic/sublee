@@ -30,7 +30,7 @@ namespace Topdev.Sublee.Cli
         private void OnExecute(CommandLineApplication app)
         {
             app.Name = "sublee";
-            app.FullName = "Command line application for downloading and searching subtitles from OpenSubtitles.org";
+            app.FullName = "Command line application for sorting media, searching and downloading subtitles from OpenSubtitles.org";
             app.ShowHelp();
         }
     }

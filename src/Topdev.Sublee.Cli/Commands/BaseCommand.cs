@@ -14,6 +14,8 @@ namespace Topdev.Sublee.Cli.Commands
 
         [Option("-v|--verbose", Description = "Be verbose.")]
         public bool Verbose { get; } = false;
+        protected virtual bool ShowHelp
+            => _app.Options.All(o => o.Values.Count == 0) && _app.Arguments.All(a => a.Values.Count == 0);
 
         public BaseCommand(ILogger<BaseCommand> logger)
         {
@@ -35,7 +37,7 @@ namespace Topdev.Sublee.Cli.Commands
 
             if (ShowHelp)
             {
-                app.ShowHelp();
+                app.ShowHint();
                 return;
             }
 
@@ -48,8 +50,6 @@ namespace Topdev.Sublee.Cli.Commands
                 _logger.LogError(exception.Message);
             }
         }
-        protected virtual bool ShowHelp
-            => _app.Options.All(o => o.Values.Count == 0) && _app.Arguments.All(a => a.Values.Count == 0);
         protected abstract void Execute(CommandLineApplication app);
     }
 }

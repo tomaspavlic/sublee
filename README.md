@@ -1,7 +1,7 @@
 # sublee
 [![Build status](https://img.shields.io/travis/tomaspavlic/sublee.svg)](https://github.com/tomaspavlic/sublee)
 
-Console application for downloading and searching subtitles from OpenSubtitles.org
+Command line application for sorting media, searching and downloading subtitles from OpenSubtitles.org
 
 ## Install
 
@@ -20,23 +20,26 @@ accessible from command line. The sublee is ready to go.
 #### search subtitles using query method
 `sublee search "Game Of Thrones s01e01" --method query --language eng`
 
+#### rename media file
+`sublee rename ~/Downloads /Volumes/DATA -v -r`
+
 ##### example:
-sublee search --help
+sublee --help
 
 ##### output:
 ```
-Usage: sublee search [arguments] [options]
+Command line application for sorting media, searching and downloading subtitles from OpenSubtitles.org
 
-Arguments:
-  search                Search value depends on search method. moviehash <path>, query <text>, imdb <id>, tag <text>
+Usage: sublee [options] [command]
 
 Options:
-  -m|--method <method>  Search method moviehash, query, tag or imdb
-  -o|--output <path>    Path for output subtitles filename default is original substitles name
-  -l|--language <lang>  Language of subtitles default is english (eng). ISO 639-2/B
-  -1|--first            Download first subtitles without user input
-  -v|--verbose          Be verbose
-  -?|-h|--help          Show help information
+  -?|-h|--help  Show help information
+
+Commands:
+  rename        Recognize a media file and move it to new location
+  search        Search subtitles for given media file
+
+Run 'sublee [command] --help' for more information about a command.
 ```
 
 ##### Prompt

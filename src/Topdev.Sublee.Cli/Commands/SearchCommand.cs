@@ -7,6 +7,8 @@ using Topdev.OpenSubtitles;
 
 namespace Topdev.Sublee.Cli.Commands
 {
+    [Command(
+        Description = "Search subtitles for given media file")]
     public class SearchCommand : BaseCommand
     {
         [Argument(0, "search", "Search value depends on search method. moviehash <path>, query <text>, imdb <id>, tag <text>")]
