@@ -19,19 +19,11 @@ namespace Topdev.Sublee.Cli
         typeof(RenameCommand))]
     class Program
     {
-        // public static int Main(string[] args)
-        //     => CommandLineApplication.Execute<Program>(args);
-
         public static async Task<int> Main(string[] args)
         {
-            var api = new OpenSubtitlesApi();
-            api.LogIn("eng", "sublee");
-
             return await new HostBuilder()
                 .ConfigureLogging((context, builder) => {
                     builder.AddConsole();})
-                .ConfigureServices((context, builder) => {
-                    builder.AddSingleton(api);})
                 .RunCommandLineApplicationAsync<Program>(args);
         }
 

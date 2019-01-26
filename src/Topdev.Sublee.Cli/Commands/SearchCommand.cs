@@ -9,8 +9,6 @@ namespace Topdev.Sublee.Cli.Commands
 {
     public class SearchCommand : BaseCommand
     {
-        private readonly OpenSubtitlesApi _api;
-
         [Argument(0, "search", "Search value depends on search method. moviehash <path>, query <text>, imdb <id>, tag <text>")]
         public string Search { get; }
 
@@ -27,10 +25,10 @@ namespace Topdev.Sublee.Cli.Commands
         [Option("-1|--first", Description = "Download first subtitles without user input")]
         public bool First { get; }
 
-        public SearchCommand(ILogger<SearchCommand> logger, OpenSubtitlesApi api)
+        public SearchCommand(ILogger<SearchCommand> logger)
             : base(logger)
         {
-            _api = api;
+            
         }
 
         protected override void Execute(CommandLineApplication app)

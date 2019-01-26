@@ -2,6 +2,7 @@ using System;
 using System.Linq;
 using McMaster.Extensions.CommandLineUtils;
 using Microsoft.Extensions.Logging;
+using Topdev.OpenSubtitles;
 
 namespace Topdev.Sublee.Cli.Commands
 {
@@ -9,13 +10,23 @@ namespace Topdev.Sublee.Cli.Commands
     {
         protected CommandLineApplication _app;
         protected readonly ILogger<BaseCommand> _logger;
+        protected readonly OpenSubtitlesApi _api = new OpenSubtitlesApi();
 
-        [Option("-v|--verbose", Description = "Be verbose")]
+        [Option("-v|--verbose", Description = "Be verbose.")]
         public bool Verbose { get; } = false;
 
         public BaseCommand(ILogger<BaseCommand> logger)
         {
             _logger = logger;
+            try
+            {
+                _api.LogIn("eng", "sublee");
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex.Message);
+                Environment.Exit(1);
+            }
         }
 
         public void OnExecute(CommandLineApplication app)

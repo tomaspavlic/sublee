@@ -14,22 +14,26 @@ namespace Topdev.Sublee.Cli.Commands
         private readonly MediaInfoFactory _mifactory;
         private readonly IFilePathGenerator _filePathGenerator = new PlexFilePathGenerator();
 
-        [Argument(0, "input", "File or directory to be renamed.")]
+        [Argument(0, "input", "File or directory to be renamed")]
         public string Input { get; }
+
+        [Argument(1, "output", "Path for output directory")]
+        public string Output { get; }
 
         [Option("-e|--extensions <ex1>|<ex2>|<ex3>", Description = "Allowed extensions of files to be renamed")]
         public string Extensions { get; } = "avi|mkv|mp4|mov";
 
-        [Option("-o|--output <path>", Description = "Path for output directory")]
-        public string Output { get; }
-
         [Option("-r|--replace", Description = "Be verbose")]
         public bool Replace { get; } = false;
 
-        public RenameCommand(ILogger<RenameCommand> logger, OpenSubtitlesApi api)
+        [Option("-o|--output", Description = "Print out path to new file location")]
+        public bool PrintOutput { get; } = false;
+        
+
+        public RenameCommand(ILogger<RenameCommand> logger)
             : base(logger)
         {
-            _mifactory = new MediaInfoFactory(api, logger);
+            _mifactory = new MediaInfoFactory(_api, logger);
         }
 
         protected override void Execute(CommandLineApplication app)
@@ -89,6 +93,9 @@ namespace Topdev.Sublee.Cli.Commands
             if (Verbose) _logger.LogInformation($"Moving file to new location.");
             // Move file to newly generated path
             File.Move(mediaInfo.FilePath, outputFilePath);
+
+            // Write new file path
+            if (PrintOutput) Console.WriteLine(outputFilePath);
         }
 
         private bool IsValidFile(string file)
