@@ -40,7 +40,10 @@ namespace Topdev.Sublee.Cli.Commands
             var subtitles = _api.FindSubtitles(Method, Search, Language);
 
             if (subtitles.Length == 0)
+            {
                 _logger.LogWarning($"No subtitles found.");
+                Environment.Exit(0);
+            }
 
             if (!First)
             {

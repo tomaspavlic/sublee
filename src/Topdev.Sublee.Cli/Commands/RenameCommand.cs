@@ -30,7 +30,7 @@ namespace Topdev.Sublee.Cli.Commands
 
         [Option("-o|--output", Description = "Print out path to new file location")]
         public bool PrintOutput { get; } = false;
-        
+
 
         public RenameCommand(ILogger<RenameCommand> logger)
             : base(logger)
@@ -51,7 +51,15 @@ namespace Topdev.Sublee.Cli.Commands
                 foreach (var file in files)
                 {
                     if (Verbose) _logger.LogInformation($"File found {file}.");
-                    Rename(file);
+
+                    try
+                    {
+                        Rename(file);
+                    }
+                    catch (Exception exception)
+                    {
+                        _logger.LogError(exception.Message);
+                    }
                 }
             }
             // if input is filepath
