@@ -23,6 +23,9 @@ accessible from command line. The sublee is ready to go.
 #### rename media file
 `sublee rename ~/Downloads /Volumes/DATA -v -r`
 
+#### rename media file
+`sublee info /path/to/some/movie`
+
 ##### example:
 sublee --help
 
@@ -38,6 +41,7 @@ Options:
 Commands:
   rename        Recognize a media file and move it to new location
   search        Search subtitles for given media file
+  info          Show info about media file
 
 Run 'sublee [command] --help' for more information about a command.
 ```
