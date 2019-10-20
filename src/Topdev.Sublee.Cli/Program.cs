@@ -16,7 +16,8 @@ namespace Topdev.Sublee.Cli
     [Command]
     [Subcommand(
         typeof(SearchCommand), 
-        typeof(RenameCommand))]
+        typeof(RenameCommand),
+        typeof(InfoCommand))]
     class Program
     {
         public static async Task<int> Main(string[] args)
