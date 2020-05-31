@@ -1,11 +1,12 @@
 # sublee
-[![Build status](https://img.shields.io/travis/tomaspavlic/sublee.svg)](https://github.com/tomaspavlic/sublee)
+![build](https://github.com/tomaspavlic/sublee/workflows/build/badge.svg)
+[![Releases](https://img.shields.io/github/downloads/tomaspavlic/sublee/total.svg)][Releases]
 
 Command line application for sorting media, searching and downloading subtitles from OpenSubtitles.org
 
 ## Install
 
-[![Releases](https://img.shields.io/github/downloads/tomaspavlic/sublee/total.svg)][Releases]
+
 
 Standalone **executables** for _Linux_, _macOS_ and _Windows_ are provided in
 the [Releases] section.
