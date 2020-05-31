@@ -1,15 +1,15 @@
 using System;
 using System.Linq;
 using Microsoft.Extensions.Logging;
-using Topdev.OpenSubtitles;
+using Topdev.OpenSubtitles.Client;
 
 namespace Topdev.Sublee.Cli.Models
 {
     public class MediaInfoFactory
     {
-        private readonly OpenSubtitlesApi _api;
+        private readonly OpenSubtitlesClient _api;
         private readonly ILogger _logger;
-        public MediaInfoFactory(OpenSubtitlesApi api, ILogger logger)
+        public MediaInfoFactory(OpenSubtitlesClient api, ILogger logger)
         {
             _logger = logger;
             _api = api;

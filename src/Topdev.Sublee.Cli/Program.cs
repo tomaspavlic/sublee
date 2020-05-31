@@ -1,7 +1,7 @@
 ﻿using System.IO;
 using System;
 using System.Linq;
-using Topdev.OpenSubtitles;
+using Topdev.OpenSubtitles.Client;
 using System.Net.Http;
 using McMaster.Extensions.CommandLineUtils;
 using Topdev.Sublee.Cli.Commands;

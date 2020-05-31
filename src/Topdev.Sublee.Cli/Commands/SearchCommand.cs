@@ -3,7 +3,7 @@ using System.IO;
 using System.Linq;
 using McMaster.Extensions.CommandLineUtils;
 using Microsoft.Extensions.Logging;
-using Topdev.OpenSubtitles;
+using Topdev.OpenSubtitles.Client;
 
 namespace Topdev.Sublee.Cli.Commands
 {

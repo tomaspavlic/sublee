@@ -1,7 +1,7 @@
 using System;
 using System.IO;
 using Microsoft.Extensions.Logging;
-using Topdev.OpenSubtitles;
+using Topdev.OpenSubtitles.Client;
 
 namespace Topdev.Sublee.Cli.Models
 {

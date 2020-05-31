@@ -16,10 +16,7 @@
     <PackageReference Include="Microsoft.Extensions.Logging.Console" Version="3.0.0" />
     <PackageReference Include="Newtonsoft.Json" Version="12.0.2" />
     <PackageReference Include="System.Runtime.Serialization.Xml" Version="4.3.0" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\Topdev.OpenSubtitles\Topdev.OpenSubtitles.csproj" />
+    <PackageReference Include="Topdev.OpenSubtitles.Client" Version="1.0.1" />
   </ItemGroup>
 
   <Target Name="GetTargetPath" Returns="@(_FakeOutputPath)">

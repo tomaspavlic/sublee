@@ -1,5 +1,5 @@
 using System;
-using Topdev.OpenSubtitles;
+using Topdev.OpenSubtitles.Client;
 
 namespace Topdev.Sublee.Cli.Models
 {
