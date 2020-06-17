@@ -23,8 +23,8 @@ namespace Topdev.Sublee.Cli
         public static async Task<int> Main(string[] args)
         {
             return await new HostBuilder()
-                .ConfigureLogging((context, builder) => {
-                    builder.AddConsole();})
+                // .ConfigureLogging((context, builder) => {
+                //     builder.AddConsole();})
                 .RunCommandLineApplicationAsync<Program>(args);
         }
 

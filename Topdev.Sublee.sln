@@ -2,7 +2,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.26124.0
 MinimumVisualStudioVersion = 15.0.26124.0
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Topdev.Sublee.Cli", "src\Topdev.Sublee.Cli\Topdev.Sublee.Cli.csproj", "{D55FAF84-2834-4088-AAE7-A9F637C40CBE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Topdev.Sublee.Cli", "src\Topdev.Sublee.Cli.csproj", "{D55FAF84-2834-4088-AAE7-A9F637C40CBE}"
 EndProject
 Project("{930C7802-8A8C-48F9-8165-68863BCCD9DD}") = "Topdev.Sublee.Installer", "tools\Topdev.Sublee.Installer\Topdev.Sublee.Installer.wixproj", "{1A2D6C04-BB4F-4495-8B00-B353860ECA2F}"
 EndProject

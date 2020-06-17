@@ -6,12 +6,23 @@ Command line application for sorting media, searching and downloading subtitles 
 
 ## Install
 
-
-
 Standalone **executables** for _Linux_, _macOS_ and _Windows_ are provided in
 the [Releases] section.
 Download an archive for your operating system and unpack the content to a place
 accessible from command line. The sublee is ready to go.
+
+### Manual (CLI only)
+
+_dotnet SDK needed_
+
+Runtime catalog for publish for you OS [here](https://docs.microsoft.com/cs-cz/dotnet/core/rid-catalog)
+
+```bash
+git clone https://github.com/tomaspavlic/sublee
+cd sublee/src
+dotnet publish --runtime osx-x64 --framework netcoreapp3.0 --self-contained -o /opt/sublee
+ln -s /opt/sublee/sublee /usr/local/bin/sublee
+```
 
 ## usage:
 

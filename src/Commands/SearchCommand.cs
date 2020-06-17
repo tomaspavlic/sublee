@@ -4,6 +4,7 @@ using System.Linq;
 using McMaster.Extensions.CommandLineUtils;
 using Microsoft.Extensions.Logging;
 using Topdev.OpenSubtitles.Client;
+using Topdev.Sublee.Cli.Extensions;
 
 namespace Topdev.Sublee.Cli.Commands
 {
@@ -41,7 +42,7 @@ namespace Topdev.Sublee.Cli.Commands
 
             if (subtitles.Length == 0)
             {
-                _logger.LogWarning($"No subtitles found.");
+                OutputExtensions.WriteError($"No subtitles found.");
                 Environment.Exit(0);
             }
 
@@ -56,7 +57,7 @@ namespace Topdev.Sublee.Cli.Commands
             var selectedSubtitles = subtitles[selectedIndex];
             var outputFilePath = BuildOutputFilePath(Output, selectedSubtitles.SubFileName);
 
-            if (Verbose) _logger.LogInformation($"Downloading: '{selectedSubtitles.MovieName} ({selectedSubtitles.MovieYear})' to '{outputFilePath}'.");
+            if (Verbose) OutputExtensions.WriteVerbose($"Downloading: '{selectedSubtitles.MovieName} ({selectedSubtitles.MovieYear})' to '{outputFilePath}'.");
             _api.DownloadSubtitle(selectedSubtitles, outputFilePath);
 
         }

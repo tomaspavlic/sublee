@@ -5,6 +5,7 @@ using McMaster.Extensions.CommandLineUtils;
 using Microsoft.Extensions.Logging;
 using Topdev.OpenSubtitles.Client;
 using Topdev.Sublee.Cli.Models;
+using Topdev.Sublee.Cli.Extensions;
 
 namespace Topdev.Sublee.Cli.Commands
 {
@@ -50,7 +51,7 @@ namespace Topdev.Sublee.Cli.Commands
 
                 foreach (var file in files)
                 {
-                    if (Verbose) _logger.LogInformation($"File found {file}.");
+                    if (Verbose) OutputExtensions.WriteVerbose($"File found '{file}'.");
 
                     try
                     {
@@ -58,7 +59,8 @@ namespace Topdev.Sublee.Cli.Commands
                     }
                     catch (Exception exception)
                     {
-                        _logger.LogError(exception.Message);
+                        //_logger.LogError(exception.Message);
+                        OutputExtensions.WriteError(exception.Message);
                     }
                 }
             }
@@ -75,15 +77,18 @@ namespace Topdev.Sublee.Cli.Commands
 
         private void Rename(string file)
         {
-            if (Verbose) _logger.LogInformation($"Retrieving information about file {file}.");
+            var f = new FileInfo(file);
+
+            if (Verbose) OutputExtensions.WriteVerbose($"Retrieving information about file '{f.Name}'.");
+
             // Retrieve file information
             var mediaInfo = _mifactory.Create(file);
 
-            if (Verbose) _logger.LogInformation($"Identified as '{mediaInfo}'.");
+            if (Verbose) OutputExtensions.WriteVerbose($"Identified as '{mediaInfo}'.");
             // Generate output file path
             var outputFilePath = _filePathGenerator.Generate(mediaInfo, Output);
 
-            if (Verbose) _logger.LogInformation($"New path for file generated '{outputFilePath}'.");
+            if (Verbose) OutputExtensions.WriteVerbose($"New path for file generated '{outputFilePath}'.");
             // Check if direcotry exists if not create
             new FileInfo(outputFilePath).Directory.Create();
 
@@ -95,12 +100,13 @@ namespace Topdev.Sublee.Cli.Commands
                 }
                 else
                 {
-                    _logger.LogWarning("File already exists. Skipping.");
+                    OutputExtensions.WriteError("File already exists. Skipping.");
                     return;
                 }
             }
 
-            if (Verbose) _logger.LogInformation($"Moving file to new location.");
+            OutputExtensions.WriteInfo($"Moving '{f.Name}' to '{outputFilePath}'.");
+
             // Move file to newly generated path
             File.Move(mediaInfo.FilePath, outputFilePath);
 
