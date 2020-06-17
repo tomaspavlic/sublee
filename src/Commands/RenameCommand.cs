@@ -43,31 +43,35 @@ namespace Topdev.Sublee.Cli.Commands
         {
             _allowedExtensions = Extensions.Split('|').Select(e => $".{e}").ToArray();
 
-            // if input is directory path
+            foreach (var file in GetFiles(Input))
+            {
+                if (Verbose) OutputExtensions.WriteVerbose($"File found '{file}'.");
+
+                try
+                {
+                    Rename(file);
+                }
+                catch (Exception exception)
+                {
+                    OutputExtensions.WriteError(exception.Message);
+                }
+            }
+
+        }
+
+        private string[] GetFiles(string path)
+        {
             if (Directory.Exists(Input))
             {
                 var files = Directory.GetFiles(Input, "*", SearchOption.AllDirectories)
-                    .Where(IsValidFile);
-
-                foreach (var file in files)
-                {
-                    if (Verbose) OutputExtensions.WriteVerbose($"File found '{file}'.");
-
-                    try
-                    {
-                        Rename(file);
-                    }
-                    catch (Exception exception)
-                    {
-                        //_logger.LogError(exception.Message);
-                        OutputExtensions.WriteError(exception.Message);
-                    }
-                }
+                    .Where(IsValidFile)
+                    .ToArray();
+                    
+                return files;
             }
-            // if input is filepath
             else if (IsValidFile(Input))
             {
-                Rename(Input);
+                return new string[] { Input };
             }
             else
             {

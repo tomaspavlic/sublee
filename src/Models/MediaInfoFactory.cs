@@ -25,7 +25,7 @@ namespace Topdev.Sublee.Cli.Models
                 .FirstOrDefault();
 
             if (subtitles == null)
-                throw new Exception("No information could be found.");
+                throw new Exception($"No information could be found for '{filePath}'.");
                 
             if (subtitles.MovieKind == "episode")
             {
